@@ -280,22 +280,90 @@
   .ch-card h3 { font-size: 0.94rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
   .ch-card p { font-size: 0.83rem; color: var(--ifs-text-muted); line-height: 1.6; }
 
-  /* ── PERSONAS ──────────────────────────────────────── */
-  .persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.85rem; }
-  .p-pill {
-    display: flex; align-items: center; gap: 0.85rem;
+  /* ── PERSONA PAIN CHAIN ─────────────────────────────── */
+  .pc-tier-label {
+    font-size: .62rem; font-weight: 800; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ifs-green);
+    display: flex; align-items: center; gap: .5rem;
+    margin: 1.4rem 0 .6rem;
+  }
+  .pc-tier-label::after { content: ''; flex: 1; height: 1px; background: rgba(0,240,160,.18); }
+  .pc-tier-label:first-of-type { margin-top: 0; }
+  .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .6rem; margin-bottom: .25rem; }
+  .pc-card {
     background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
-    border-radius: var(--r-lg); padding: 0.85rem 1.1rem;
-    transition: all 0.2s;
+    border-radius: var(--r); padding: .7rem .9rem;
+    cursor: pointer; transition: all .18s; text-align: left;
+    font-family: inherit; color: var(--ifs-text-muted);
   }
-  .p-pill:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); }
-  .p-num {
-    background: rgba(0,240,160,0.15); border: 1px solid rgba(0,240,160,0.3);
-    color: var(--ifs-green); width: 28px; height: 28px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; font-weight: 900; flex-shrink: 0;
+  .pc-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,.25); color: var(--ifs-white); }
+  .pc-card.active { background: rgba(0,240,160,.1); border-color: rgba(0,240,160,.45); color: var(--ifs-white); }
+  .pc-num {
+    font-size: .6rem; font-weight: 900; letter-spacing: .06em;
+    color: var(--ifs-green); margin-bottom: .25rem;
+    display: block;
   }
-  .p-pill span { font-size: 0.83rem; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.35; }
+  .pc-card.active .pc-num { color: var(--ifs-green); }
+  .pc-name { font-size: .78rem; font-weight: 700; line-height: 1.35; }
+
+  /* pain panel */
+  .pp-wrap {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-lg); padding: 1.5rem 1.75rem;
+    margin-top: 1.25rem; animation: ppFade .2s ease;
+  }
+  @keyframes ppFade { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+  .pp-badge {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: rgba(0,240,160,.1); border: 1px solid rgba(0,240,160,.25);
+    color: var(--ifs-green); font-size: .62rem; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase;
+    padding: .18rem .75rem; border-radius: var(--r-pill);
+    margin-bottom: .75rem;
+  }
+  .pp-title { font-size: 1.05rem; font-weight: 900; letter-spacing: -.015em; color: var(--ifs-white); margin-bottom: .5rem; }
+  .pp-core {
+    font-size: .86rem; color: rgba(255,255,255,.78); font-style: italic;
+    border-left: 2px solid rgba(0,240,160,.35); padding-left: .9rem;
+    line-height: 1.65; margin-bottom: 1.25rem;
+  }
+  .pp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+  .pp-col { background: rgba(255,255,255,.03); border: 1px solid var(--ifs-border); border-radius: var(--r); padding: 1.1rem 1.2rem; position: relative; overflow: hidden; }
+  .pp-col::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .pp-col.ch::before { background: linear-gradient(90deg, var(--ifs-green), var(--ifs-purple-bright)); }
+  .pp-col.imp::before { background: linear-gradient(90deg, #FF9040, #FFB870); }
+  .pp-col h4 { font-size: .62rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .75rem; }
+  .pp-col.ch h4 { color: var(--ifs-green); }
+  .pp-col.imp h4 { color: #FFB060; }
+  .pp-col ul { list-style: none; }
+  .pp-col ul li {
+    font-size: .82rem; color: rgba(255,255,255,.65);
+    padding: .27rem 0; border-bottom: 1px solid var(--ifs-border);
+    display: flex; align-items: baseline; gap: .45rem; line-height: 1.45;
+  }
+  .pp-col ul li:last-child { border-bottom: none; }
+  .ch li::before { content: '↗'; color: var(--ifs-green); font-size: .68rem; flex-shrink: 0; }
+  .imp li::before { content: '↘'; color: #FFB060; font-size: .68rem; flex-shrink: 0; }
+
+  /* unifying + outcome */
+  .pc-unifying {
+    background: linear-gradient(135deg, rgba(61,26,110,.55), rgba(0,240,160,.04));
+    border: 1px solid rgba(123,63,191,.25); border-radius: var(--r-lg);
+    padding: 1.4rem 1.75rem; margin-top: 1.1rem;
+  }
+  .pc-unifying .uk { font-size: .62rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--ifs-green); display: flex; align-items: center; gap: .4rem; margin-bottom: .6rem; }
+  .pc-unifying .uk::before { content: ''; width: 14px; height: 2px; background: var(--ifs-green); }
+  .pc-unifying h3 { font-size: .98rem; font-weight: 900; color: var(--ifs-white); margin-bottom: .8rem; }
+  .pc-pills { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: .9rem; }
+  .pc-pill { background: rgba(255,255,255,.07); border: 1px solid var(--ifs-border-mid); color: var(--ifs-text-muted); font-size: .72rem; font-weight: 600; padding: .22rem .75rem; border-radius: var(--r-pill); }
+  .pc-result { font-size: .86rem; color: rgba(255,255,255,.72); line-height: 1.7; border-left: 2px solid rgba(0,240,160,.3); padding-left: .9rem; font-style: italic; }
+  .pc-outcome { background: rgba(0,240,160,.06); border: 1px solid rgba(0,240,160,.15); border-radius: var(--r-lg); padding: 1.4rem 1.75rem; margin-top: .85rem; }
+  .pc-outcome .ok { font-size: .62rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--ifs-green); display: flex; align-items: center; gap: .4rem; margin-bottom: .6rem; }
+  .pc-outcome .ok::before { content: ''; width: 14px; height: 2px; background: var(--ifs-green); }
+  .pc-outcome h3 { font-size: .95rem; font-weight: 900; color: var(--ifs-white); margin-bottom: .85rem; }
+  .out-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .out-pill { background: rgba(0,240,160,.12); border: 1px solid rgba(0,240,160,.28); color: var(--ifs-green); font-size: .73rem; font-weight: 700; padding: .28rem .85rem; border-radius: var(--r-pill); transition: all .18s; cursor: default; }
+  .out-pill:hover { background: rgba(0,240,160,.22); }
 
   /* ── MESSAGING ─────────────────────────────────────── */
   .msg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
@@ -586,7 +654,9 @@
     .tk-grid { grid-template-columns: repeat(2, 1fr); }
     .blog-grid { grid-template-columns: 1fr; }
     .a-grid { grid-template-columns: 1fr; }
-    .ch-grid, .persona-grid { grid-template-columns: 1fr 1fr; }
+    .ch-grid { grid-template-columns: 1fr 1fr; }
+    .pp-cols { grid-template-columns: 1fr; }
+    .pc-grid { grid-template-columns: repeat(2, 1fr); }
     .cal-tbl { font-size: 0.78rem; }
   }
   @media (max-width: 480px) {
@@ -723,21 +793,80 @@
   </div>
 </section>
 
-<!-- TARGETING -->
+<!-- TARGETING / PERSONA PAIN CHAIN -->
 <section id="targeting" class="section-alt">
   <div class="si">
     <span class="kicker">Who We're Targeting</span>
-    <h2 class="st">Key Personas &amp; Decision Makers</h2>
-    <p class="sl">This campaign speaks to senior leaders who drive capital investment decisions, risk strategy, and transformation across rail and transit networks globally.</p>
-    <div class="persona-grid">
-      <div class="p-pill"><div class="p-num">01</div><span>CEO / COO / CFO</span></div>
-      <div class="p-pill"><div class="p-num">02</div><span>Chief Strategy / Transformation Officer</span></div>
-      <div class="p-pill"><div class="p-num">03</div><span>SVP/VP, Asset Management</span></div>
-      <div class="p-pill"><div class="p-num">04</div><span>Directors of Infrastructure Investment &amp; Capital Planning</span></div>
-      <div class="p-pill"><div class="p-num">05</div><span>Chief Risk Officer</span></div>
-      <div class="p-pill"><div class="p-num">06</div><span>VP Finance / Regulatory Affairs</span></div>
-      <div class="p-pill"><div class="p-num">07</div><span>Chief Sustainability / Resilience Officer</span></div>
-      <div class="p-pill"><div class="p-num">08</div><span>Chief Digital Officer / CIO</span></div>
+    <h2 class="st">Rail Campaign — <em>Persona Pain Chain</em></h2>
+    <p class="sl">Explore how each priority persona experiences rail investment planning challenges — and the downstream business impact those issues create across strategy, risk, regulation, resilience, and execution.</p>
+
+    <!-- TIER 1 -->
+    <div class="pc-tier-label">Executive &amp; Strategic Leadership</div>
+    <div class="pc-grid">
+      <button class="pc-card active" onclick="pcSelect(0)"><span class="pc-num">01</span><span class="pc-name">CEO / COO / CFO</span></button>
+      <button class="pc-card" onclick="pcSelect(1)"><span class="pc-num">02</span><span class="pc-name">Chief Strategy Officer</span></button>
+      <button class="pc-card" onclick="pcSelect(2)"><span class="pc-num">03</span><span class="pc-name">Chief Risk Officer</span></button>
+      <button class="pc-card" onclick="pcSelect(3)"><span class="pc-num">04</span><span class="pc-name">VP Finance / Regulatory</span></button>
+      <button class="pc-card" onclick="pcSelect(4)"><span class="pc-num">05</span><span class="pc-name">Chief Sustainability Officer</span></button>
+      <button class="pc-card" onclick="pcSelect(5)"><span class="pc-num">06</span><span class="pc-name">Chief Digital Officer / CIO</span></button>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="pc-tier-label">Investment &amp; Asset Planning Leadership</div>
+    <div class="pc-grid">
+      <button class="pc-card" onclick="pcSelect(6)"><span class="pc-num">07</span><span class="pc-name">SVP/VP Asset Management</span></button>
+      <button class="pc-card" onclick="pcSelect(7)"><span class="pc-num">08</span><span class="pc-name">Dir. Infrastructure Investment</span></button>
+      <button class="pc-card" onclick="pcSelect(8)"><span class="pc-num">09</span><span class="pc-name">Dir. Capital Planning</span></button>
+      <button class="pc-card" onclick="pcSelect(9)"><span class="pc-num">10</span><span class="pc-name">Portfolio Planning Lead</span></button>
+    </div>
+
+    <!-- TIER 3 -->
+    <div class="pc-tier-label">Operational / Regulatory / Technical</div>
+    <div class="pc-grid">
+      <button class="pc-card" onclick="pcSelect(10)"><span class="pc-num">11</span><span class="pc-name">Regulatory Strategy Lead</span></button>
+      <button class="pc-card" onclick="pcSelect(11)"><span class="pc-num">12</span><span class="pc-name">Asset Manager</span></button>
+      <button class="pc-card" onclick="pcSelect(12)"><span class="pc-num">13</span><span class="pc-name">Engineer / Project Owner</span></button>
+      <button class="pc-card" onclick="pcSelect(13)"><span class="pc-num">14</span><span class="pc-name">Risk / Compliance Lead</span></button>
+    </div>
+
+    <!-- PAIN PANEL -->
+    <div class="pp-wrap" id="pcPanel">
+      <div class="pp-badge" id="pcBadge">Executive &amp; Strategic Leadership</div>
+      <div class="pp-title" id="pcTitle">CEO / COO / CFO</div>
+      <div class="pp-core" id="pcCore"></div>
+      <div class="pp-cols">
+        <div class="pp-col ch"><h4>Challenges</h4><ul id="pcChallenges"></ul></div>
+        <div class="pp-col imp"><h4>Business Impact</h4><ul id="pcImpact"></ul></div>
+      </div>
+    </div>
+
+    <!-- UNIFYING PROBLEM -->
+    <div class="pc-unifying">
+      <div class="uk">The Unifying Problem</div>
+      <h3>Why investment decisions break down across every persona</h3>
+      <div class="pc-pills">
+        <span class="pc-pill">Planning happens in silos</span>
+        <span class="pc-pill">Value is not consistently defined</span>
+        <span class="pc-pill">Trade-offs remain unclear</span>
+        <span class="pc-pill">ESG &amp; resilience are hard to quantify</span>
+        <span class="pc-pill">Decisions are hard to defend</span>
+        <span class="pc-pill">Strategy and execution are disconnected</span>
+      </div>
+      <p class="pc-result">Rail organizations cannot confidently align capital investment decisions with long-term outcomes like resilience, reliability, affordability, and regulatory confidence.</p>
+    </div>
+
+    <!-- OUTCOME -->
+    <div class="pc-outcome">
+      <div class="ok">IFS Copperleaf Value for Rail</div>
+      <h3>IFS Copperleaf — value-based investment for rail</h3>
+      <div class="out-pills">
+        <span class="out-pill">Align investment with strategy</span>
+        <span class="out-pill">Quantify cost, risk &amp; resilience</span>
+        <span class="out-pill">Compare trade-offs objectively</span>
+        <span class="out-pill">Optimize capital plans</span>
+        <span class="out-pill">Defend decisions to regulators and boards</span>
+        <span class="out-pill">Build more resilient rail networks</span>
+      </div>
     </div>
   </div>
 </section>
@@ -952,6 +1081,39 @@
 </footer>
 
 <script>
+  /* ── PERSONA PAIN CHAIN DATA & LOGIC ── */
+  const pcTiers = ["Executive & Strategic Leadership","Executive & Strategic Leadership","Executive & Strategic Leadership","Executive & Strategic Leadership","Executive & Strategic Leadership","Executive & Strategic Leadership","Investment & Asset Planning Leadership","Investment & Asset Planning Leadership","Investment & Asset Planning Leadership","Investment & Asset Planning Leadership","Operational / Regulatory / Technical","Operational / Regulatory / Technical","Operational / Regulatory / Technical","Operational / Regulatory / Technical"];
+  const pcData = [
+    {title:"CEO / COO / CFO",core:"Unable to confidently answer whether rail investment decisions are delivering the right long-term outcomes across cost, risk, resilience, and public accountability.",challenges:["Limited visibility into how capital decisions affect long-term network performance","Difficulty balancing affordability, reliability, and resilience","Pressure to justify major investments to boards, regulators, and public stakeholders","Trade-offs between service, risk, and funding are not consistently clear"],impact:["Reduced confidence in capital decisions","Greater scrutiny from boards and regulators","Missed performance, resilience, or affordability outcomes"]},
+    {title:"Chief Strategy / Transformation Officer",core:"Strategic priorities are difficult to translate into an investment plan that teams can execute consistently.",challenges:["Long-term strategy is disconnected from day-to-day investment planning","Transformation initiatives compete with core infrastructure needs","Difficult to align investment choices with modernization goals","No common framework for prioritizing change across the enterprise"],impact:["Strategy execution gaps","Fragmented transformation outcomes","Slow progress toward modernization goals"]},
+    {title:"Chief Risk Officer",core:"Risk exposure is not consistently connected to investment planning decisions.",challenges:["Risk assessments vary across teams and asset classes","Hard to compare risk reduction value across investment options","Limited ability to demonstrate how plans reduce enterprise risk","Risk visibility is weak at portfolio level"],impact:["Unclear risk posture at leadership level","Underinvestment in critical risk mitigation","Greater vulnerability to disruption and regulatory challenge"]},
+    {title:"VP Finance / Regulatory Affairs",core:"Investment plans are difficult to defend financially and regulatorily.",challenges:["No consistent economic basis for comparing projects","Difficulty linking funding asks to measurable outcomes","Limited auditability and defensibility in planning assumptions","Challenging to communicate impact of budget changes to regulators"],impact:["Slower approvals and tougher scrutiny","Weaker investment cases","Reduced confidence in funding and rate justification"]},
+    {title:"Chief Sustainability / Resilience Officer",core:"Climate resilience and sustainability goals are not fully embedded in capital decision-making.",challenges:["ESG and resilience priorities are hard to quantify alongside cost and risk","Climate adaptation needs compete with near-term operational pressures","Difficult to compare resilience value across projects","Sustainability commitments are not consistently connected to investment plans"],impact:["Missed decarbonization and resilience targets","Reduced credibility of sustainability commitments","Investment plans that underweight long-term climate risk"]},
+    {title:"Chief Digital Officer / CIO",core:"Data and digital capabilities are not translating into better investment decisions.",challenges:["Planning data is fragmented across systems and teams","Digital initiatives are disconnected from investment workflows","Limited trust in data quality for strategic planning","Legacy processes slow insight generation and scenario analysis"],impact:["Low return on digital transformation efforts","Slower, less informed planning cycles","Limited adoption of data-driven decision-making"]},
+    {title:"SVP/VP, Asset Management",core:"Cannot reliably balance cost, risk, performance, and lifecycle needs across the rail asset base.",challenges:["Aging infrastructure creates growing renewal pressure","Planning is fragmented across functions and asset classes","Long-term asset needs are hard to compare objectively","Difficult to align asset strategy with available funding"],impact:["Reactive rather than proactive investment","Inconsistent asset performance outcomes","Asset plans that are hard to defend or execute"]},
+    {title:"Director of Infrastructure Investment",core:"Too difficult to prioritize the right infrastructure investments under constrained funding.",challenges:["Many competing projects with inconsistent evaluation criteria","Funding constraints force hard trade-offs without enough evidence","Difficult to show which projects create the most value","Limited visibility into portfolio-wide consequences of deferral"],impact:["Suboptimal project prioritization","High-value investments delayed","Less confidence in investment recommendations"]},
+    {title:"Director of Capital Planning",core:"Capital plans are time-consuming to build and difficult to optimize when assumptions change.",challenges:["Scenario planning is too manual and slow","Budget shifts require major rework","Risk, cost, and performance data are not unified","Plans are hard to update quickly for stakeholders"],impact:["Slow planning cycles","Reduced agility when budgets or priorities shift","Capital plans that are less robust and less defensible"]},
+    {title:"Portfolio / Investment Planning Lead",core:"No clear, repeatable framework for comparing investment options across a mixed rail portfolio.",challenges:["Portfolio decisions rely on inconsistent data inputs","Hard to compare short-term needs with long-term outcomes","Limited transparency into portfolio trade-offs","Difficult to communicate why one investment should outrank another"],impact:["Portfolio decisions challenged by stakeholders","Poor visibility into aggregate portfolio risk","Less confidence in funding allocation"]},
+    {title:"Regulatory Strategy Lead",core:"Cannot clearly show regulators how investment decisions support outcomes, compliance, and public value.",challenges:["Need stronger evidence linking investment to outcomes","Hard to explain trade-offs in a transparent way","Limited traceability from strategy to plan to justification","Regulatory narratives harder to support without auditable planning logic"],impact:["Longer regulatory review cycles","Lower confidence in submissions","Increased pressure to justify investment choices"]},
+    {title:"Asset Manager",core:"Managing the consequences of poor upstream planning with limited forward visibility.",challenges:["Aging assets and deferred renewal increase intervention pressure","Limited ability to influence strategic investment choices","Hard to prioritize interventions consistently","Reactive maintenance signals not well linked to capital planning"],impact:["More service-affecting failures","Higher maintenance costs","Reduced asset reliability and lifespan"]},
+    {title:"Engineer / Project Owner",core:"Technical insight is not always translated into investment decisions that leadership can act on.",challenges:["Engineering needs compete with financial and strategic priorities","Hard to express technical urgency in decision-ready terms","Project value is not always clear across stakeholders","Technical evidence does not consistently shape prioritization"],impact:["Critical issues may be deferred too long","Frustration between technical and planning teams","Project cases lose force in executive review"]},
+    {title:"Risk / Compliance Lead",core:"Compliance obligations and operational risk are not consistently integrated into investment prioritization.",challenges:["Compliance issues compete with other strategic priorities","Hard to quantify compliance-related investment value","Risk reduction is difficult to compare across projects","Limited consistency in how assurance and compliance needs are factored into plans"],impact:["Higher exposure to compliance failure","Poor visibility into control gaps","Investment decisions that miss preventable risk"]}
+  ];
+  function pcSelect(idx) {
+    document.querySelectorAll('.pc-card').forEach((c,i) => c.classList.toggle('active', i === idx));
+    const d = pcData[idx];
+    document.getElementById('pcBadge').textContent = pcTiers[idx];
+    document.getElementById('pcTitle').textContent = d.title;
+    document.getElementById('pcCore').textContent = d.core;
+    document.getElementById('pcChallenges').innerHTML = d.challenges.map(c=>`<li>${c}</li>`).join('');
+    document.getElementById('pcImpact').innerHTML = d.impact.map(i=>`<li>${i}</li>`).join('');
+    const panel = document.getElementById('pcPanel');
+    panel.style.animation = 'none';
+    panel.offsetHeight;
+    panel.style.animation = '';
+  }
+  pcSelect(0);
+
   function toggleMenu() {
     document.getElementById('mobNav').classList.toggle('open');
   }
