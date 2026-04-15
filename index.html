@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rail Campaign Content Hub 2026 — IFS Copperleaf</title>
+<style>
+  :root {
+    --ifs-navy:       #0D0A1A;
+    --ifs-nav:        #1A0F2E;
+    --ifs-purple:     #3D1A6E;
+    --ifs-purple-mid: #5C2D9A;
+    --ifs-purple-bright: #7B3FBF;
+    --ifs-purple-glow: #9B5FDF;
+    --ifs-green:      #00F0A0;
+    --ifs-green-dark: #00C880;
+    --ifs-white:      #FFFFFF;
+    --ifs-off-white:  #F0EEF5;
+    --ifs-text-muted: rgba(255,255,255,0.62);
+    --ifs-text-dim:   rgba(255,255,255,0.38);
+    --ifs-border:     rgba(255,255,255,0.08);
+    --ifs-border-mid: rgba(255,255,255,0.14);
+    --ifs-card-bg:    rgba(255,255,255,0.04);
+    --ifs-card-hover: rgba(255,255,255,0.08);
+    --r: 10px;
+    --r-lg: 16px;
+    --r-xl: 20px;
+    --r-pill: 100px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--ifs-navy);
+    color: var(--ifs-white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ─────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--ifs-navy); }
+  ::-webkit-scrollbar-thumb { background: var(--ifs-purple-mid); border-radius: 3px; }
+
+  /* ── NAV ───────────────────────────────────────────── */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: var(--ifs-nav);
+    border-bottom: 1px solid var(--ifs-border);
+  }
+  .nav-inner {
+    max-width: 1360px; margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; gap: 1rem;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
+  }
+  /* IFS starburst mark */
+  .nav-starburst {
+    width: 34px; height: 34px; position: relative; flex-shrink: 0;
+  }
+  .nav-starburst svg { width: 34px; height: 34px; }
+  .nav-logo-text {
+    font-size: 0.75rem; font-weight: 700;
+    color: rgba(255,255,255,0.75); letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+  .nav-logo-text span { color: var(--ifs-green); }
+  .nav-links {
+    display: flex; list-style: none; gap: 0.1rem;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.68); text-decoration: none;
+    font-size: 0.78rem; font-weight: 500;
+    padding: 0.45rem 0.7rem; border-radius: var(--r);
+    white-space: nowrap; transition: color 0.18s, background 0.18s;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .nav-cta {
+    background: var(--ifs-green) !important;
+    color: #000 !important; font-weight: 800 !important;
+    border-radius: var(--r-pill) !important; padding: 0.42rem 1.1rem !important;
+    flex-shrink: 0; font-size: 0.8rem; text-decoration: none;
+    transition: background 0.18s, transform 0.18s;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ifs-green-dark) !important; transform: translateY(-1px); }
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+
+  /* ── BUTTONS ───────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-weight: 800; text-decoration: none; cursor: pointer;
+    transition: all 0.2s; border: none; font-family: inherit;
+  }
+  .btn-green {
+    background: var(--ifs-green); color: #000;
+    padding: 0.75rem 1.6rem; border-radius: var(--r-pill);
+    font-size: 0.92rem;
+  }
+  .btn-green:hover { background: var(--ifs-green-dark); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,240,160,0.25); }
+  .btn-outline {
+    background: transparent; color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 0.75rem 1.6rem; border-radius: var(--r-pill);
+    font-size: 0.92rem;
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.06); }
+  .btn-sm-green {
+    background: var(--ifs-green); color: #000;
+    padding: 0.5rem 1.1rem; border-radius: var(--r-pill);
+    font-size: 0.8rem;
+  }
+  .btn-sm-green:hover { background: var(--ifs-green-dark); }
+  .btn-sm-outline {
+    background: transparent; color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.48rem 1.1rem; border-radius: var(--r-pill);
+    font-size: 0.78rem; font-weight: 700;
+  }
+  .btn-sm-outline:hover { border-color: var(--ifs-green); color: var(--ifs-green); }
+
+  /* ── HERO ──────────────────────────────────────────── */
+  .hero {
+    position: relative; min-height: clamp(480px, 60vh, 620px);
+    display: flex; align-items: flex-end; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2025/05/IFSCopperleaf_Rail_1200x350.webp');
+    background-size: cover; background-position: center 40%;
+    filter: brightness(0.35) saturate(0.8);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(13,10,26,0.92) 0%,
+      rgba(13,10,26,0.65) 55%,
+      rgba(13,10,26,0.15) 100%
+    );
+  }
+  .hero-overlay-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
+    background: linear-gradient(to top, var(--ifs-navy), transparent);
+  }
+  /* Corner brackets — IFS UI element */
+  .bracket { position: absolute; width: 28px; height: 28px; }
+  .bracket.tl { top: 20px; left: 20px; border-top: 2px solid rgba(255,255,255,0.3); border-left: 2px solid rgba(255,255,255,0.3); }
+  .bracket.tr { top: 20px; right: 20px; border-top: 2px solid rgba(255,255,255,0.3); border-right: 2px solid rgba(255,255,255,0.3); }
+  .bracket.bl { bottom: 20px; left: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); border-left: 2px solid rgba(255,255,255,0.3); }
+  .bracket.br { bottom: 20px; right: 20px; border-bottom: 2px solid rgba(255,255,255,0.3); border-right: 2px solid rgba(255,255,255,0.3); }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1360px; margin: 0 auto; padding: 3rem 1.5rem 4rem;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ifs-green);
+    margin-bottom: 1.25rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--ifs-green); border-radius: 50%;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 900; color: var(--ifs-white);
+    line-height: 1.0; letter-spacing: -0.03em;
+    max-width: 680px; margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--ifs-green); }
+  .hero-sub {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: var(--ifs-text-muted); max-width: 520px;
+    margin-bottom: 1.75rem; line-height: 1.7; font-weight: 400;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2rem; }
+  .htag {
+    background: rgba(255,255,255,0.07); border: 1px solid var(--ifs-border-mid);
+    color: rgba(255,255,255,0.75); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.05em; padding: 0.22rem 0.75rem; border-radius: var(--r-pill);
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── SECTIONS ──────────────────────────────────────── */
+  section { padding: clamp(3rem, 7vw, 5.5rem) 1.5rem; }
+  .si { max-width: 1360px; margin: 0 auto; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ifs-green);
+    margin-bottom: 0.85rem;
+  }
+  .kicker::before {
+    content: ''; width: 20px; height: 2px; background: var(--ifs-green);
+  }
+  h2.st {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 900; color: var(--ifs-white);
+    line-height: 1.1; letter-spacing: -0.025em;
+    margin-bottom: 0.85rem;
+  }
+  h2.st em { font-style: normal; color: var(--ifs-green); }
+  .sl {
+    font-size: 1rem; color: var(--ifs-text-muted);
+    max-width: 600px; line-height: 1.72; margin-bottom: 2.75rem;
+  }
+
+  /* ── DIVIDERS ──────────────────────────────────────── */
+  .section-alt { background: rgba(255,255,255,0.02); }
+  .section-dark { background: var(--ifs-nav); }
+  .section-purple { background: linear-gradient(135deg, #1A0F2E 0%, #2A1550 100%); }
+
+  /* ── OVERVIEW ──────────────────────────────────────── */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+  .meta-table { width: 100%; border-collapse: collapse; }
+  .meta-table tr { border-bottom: 1px solid var(--ifs-border); }
+  .meta-table tr:last-child { border-bottom: none; }
+  .meta-table td { padding: 0.8rem 0; vertical-align: top; font-size: 0.9rem; }
+  .meta-table td:first-child {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--ifs-green); width: 130px;
+    padding-right: 1rem;
+  }
+  .meta-table td:last-child { color: rgba(255,255,255,0.8); }
+  .pos-box {
+    background: linear-gradient(135deg, rgba(61,26,110,0.6), rgba(92,45,154,0.3));
+    border: 1px solid rgba(123,63,191,0.3);
+    border-radius: var(--r-xl); padding: 2rem 2.25rem;
+    position: relative; overflow: hidden;
+  }
+  .pos-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--ifs-green), var(--ifs-purple-bright));
+  }
+  .pos-box blockquote {
+    font-size: 1.05rem; line-height: 1.75; font-style: italic;
+    color: rgba(255,255,255,0.85); font-weight: 400;
+  }
+  .pos-box cite {
+    display: block; margin-top: 1.25rem;
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ifs-green); font-style: normal;
+  }
+
+  /* ── CHALLENGE CARDS ───────────────────────────────── */
+  .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.1rem; }
+  .ch-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-lg); padding: 1.6rem 1.4rem;
+    transition: all 0.22s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .ch-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--ifs-green); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .ch-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); transform: translateY(-3px); }
+  .ch-card:hover::after { transform: scaleX(1); }
+  .ch-icon {
+    width: 40px; height: 40px; border-radius: var(--r);
+    background: rgba(0,240,160,0.1); border: 1px solid rgba(0,240,160,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 1rem;
+  }
+  .ch-card h3 { font-size: 0.94rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+  .ch-card p { font-size: 0.83rem; color: var(--ifs-text-muted); line-height: 1.6; }
+
+  /* ── PERSONAS ──────────────────────────────────────── */
+  .persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.85rem; }
+  .p-pill {
+    display: flex; align-items: center; gap: 0.85rem;
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-lg); padding: 0.85rem 1.1rem;
+    transition: all 0.2s;
+  }
+  .p-pill:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); }
+  .p-num {
+    background: rgba(0,240,160,0.15); border: 1px solid rgba(0,240,160,0.3);
+    color: var(--ifs-green); width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 900; flex-shrink: 0;
+  }
+  .p-pill span { font-size: 0.83rem; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.35; }
+
+  /* ── MESSAGING ─────────────────────────────────────── */
+  .msg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .msg-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); padding: 2rem 1.75rem;
+    position: relative; overflow: hidden; transition: all 0.22s;
+  }
+  .msg-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--ifs-green), var(--ifs-purple-bright));
+  }
+  .msg-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.15); transform: translateY(-3px); }
+  .msg-n { font-size: 3.5rem; font-weight: 900; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: 0.5rem; }
+  .msg-card h3 { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .msg-card p { font-size: 0.87rem; color: var(--ifs-text-muted); line-height: 1.7; }
+
+  /* ── ASSETS ────────────────────────────────────────── */
+  .tab-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.25rem; }
+  .tbtn {
+    padding: 0.4rem 1rem; border-radius: var(--r-pill);
+    border: 1px solid var(--ifs-border-mid);
+    background: transparent; color: var(--ifs-text-muted);
+    font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    transition: all 0.18s; font-family: inherit;
+  }
+  .tbtn:hover { border-color: rgba(0,240,160,0.35); color: var(--ifs-green); }
+  .tbtn.active { background: var(--ifs-green); color: #000; border-color: var(--ifs-green); }
+  .a-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.1rem; }
+  .a-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); padding: 1.5rem;
+    transition: all 0.22s; display: flex; flex-direction: column;
+  }
+  .a-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.18); }
+  .fbadge {
+    display: inline-block; padding: 0.16rem 0.65rem;
+    border-radius: var(--r-pill); font-size: 0.66rem; font-weight: 800;
+    letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .fb-t { background: rgba(0,240,160,0.12); color: var(--ifs-green); border: 1px solid rgba(0,240,160,0.25); }
+  .fb-m { background: rgba(100,150,255,0.12); color: #82AAFF; border: 1px solid rgba(100,150,255,0.25); }
+  .fb-b { background: rgba(255,160,60,0.12); color: #FFB060; border: 1px solid rgba(255,160,60,0.25); }
+  .fb-c { background: rgba(155,95,223,0.12); color: var(--ifs-purple-glow); border: 1px solid rgba(155,95,223,0.25); }
+  .a-card h3 { font-size: 0.97rem; font-weight: 800; color: #fff; margin-bottom: 0.45rem; }
+  .a-card p { font-size: 0.83rem; color: var(--ifs-text-muted); margin-bottom: 1rem; line-height: 1.6; flex: 1; }
+  .a-card ul { list-style: none; margin-bottom: 1.1rem; }
+  .a-card ul li {
+    font-size: 0.82rem; color: rgba(255,255,255,0.65);
+    padding: 0.28rem 0; border-bottom: 1px solid var(--ifs-border);
+    display: flex; align-items: baseline; gap: 0.5rem;
+  }
+  .a-card ul li::before { content: '↗'; color: var(--ifs-green); font-size: 0.72rem; }
+  .a-img { width: 100%; height: 110px; object-fit: cover; border-radius: var(--r); margin-bottom: 1rem; }
+  .link-stack { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+
+  /* ── FEATURED ──────────────────────────────────────── */
+  .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .f-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); overflow: hidden; text-decoration: none;
+    display: flex; flex-direction: column; transition: all 0.25s;
+  }
+  .f-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .f-card img { width: 100%; height: 175px; object-fit: cover; filter: brightness(0.85); transition: filter 0.25s; }
+  .f-card:hover img { filter: brightness(1); }
+  .f-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+  .f-kicker { font-size: 0.67rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ifs-green); margin-bottom: 0.4rem; }
+  .f-body h3 { font-size: 0.97rem; font-weight: 800; color: #fff; margin-bottom: 0.6rem; line-height: 1.4; }
+  .f-body p { font-size: 0.83rem; color: var(--ifs-text-muted); flex: 1; margin-bottom: 1.1rem; line-height: 1.65; }
+
+  /* ── BLOGS ─────────────────────────────────────────── */
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.1rem; }
+  .b-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); overflow: hidden;
+    display: flex; flex-direction: column; transition: all 0.25s;
+  }
+  .b-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); transform: translateY(-3px); }
+  .b-card img { width: 100%; height: 150px; object-fit: cover; filter: brightness(0.8); transition: filter 0.25s; }
+  .b-card:hover img { filter: brightness(0.95); }
+  .b-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+  .b-cat { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ifs-green); margin-bottom: 0.4rem; }
+  .b-body h3 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.8rem; line-height: 1.45; flex: 1; }
+
+  /* ── PRIORITY ──────────────────────────────────────── */
+  .pri-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .pri-card {
+    background: linear-gradient(135deg, rgba(61,26,110,0.5), rgba(0,240,160,0.04));
+    border: 1px solid rgba(0,240,160,0.15);
+    border-radius: var(--r-xl); padding: 1.75rem;
+    position: relative; overflow: hidden; transition: all 0.22s;
+  }
+  .pri-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--ifs-green), var(--ifs-purple-bright));
+  }
+  .pri-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .pri-badge {
+    display: inline-block; padding: 0.18rem 0.75rem;
+    border-radius: var(--r-pill); font-size: 0.66rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(0,240,160,0.15); color: var(--ifs-green);
+    border: 1px solid rgba(0,240,160,0.3); margin-bottom: 1rem;
+  }
+  .pri-card h3 { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.6rem; }
+  .pri-card p { font-size: 0.86rem; color: var(--ifs-text-muted); line-height: 1.65; margin-bottom: 1.1rem; }
+
+  /* ── MARKETO ───────────────────────────────────────── */
+  .mk-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .mk-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); padding: 1.75rem;
+    position: relative; overflow: hidden; transition: all 0.22s;
+  }
+  .mk-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.15); }
+  .mk-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .mk-bar.t { background: linear-gradient(90deg, var(--ifs-green), #00A87A); }
+  .mk-bar.m { background: linear-gradient(90deg, #4D8FFF, #82B4FF); }
+  .mk-bar.b { background: linear-gradient(90deg, #FF9040, #FFB870); }
+  .mk-card h3 { font-size: 0.98rem; font-weight: 800; color: #fff; margin: 0.25rem 0 0.3rem; }
+  .mk-purpose { font-size: 0.83rem; color: var(--ifs-text-muted); margin-bottom: 1rem; line-height: 1.6; }
+  .mk-card ul { list-style: none; margin-bottom: 1rem; }
+  .mk-card ul li {
+    font-size: 0.81rem; color: rgba(255,255,255,0.65);
+    padding: 0.24rem 0; border-bottom: 1px solid var(--ifs-border);
+    display: flex; gap: 0.4rem; align-items: baseline;
+  }
+  .mk-card ul li::before { content: '↗'; color: var(--ifs-green); font-size: 0.7rem; }
+  .mk-meta { font-size: 0.78rem; color: var(--ifs-text-muted); line-height: 1.6; }
+  .mk-meta strong { color: var(--ifs-green); }
+  .ctr-chip {
+    display: inline-block; margin-top: 0.75rem;
+    padding: 0.18rem 0.75rem; border-radius: var(--r-pill);
+    background: rgba(0,240,160,0.1); color: var(--ifs-green);
+    font-size: 0.7rem; font-weight: 800; border: 1px solid rgba(0,240,160,0.25);
+  }
+
+  /* ── FLOW ──────────────────────────────────────────── */
+  .flow { display: flex; gap: 0; }
+  .fl-step {
+    flex: 1; background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    padding: 1.4rem 1.15rem; position: relative; z-index: 1;
+    transition: all 0.22s;
+  }
+  .fl-step:first-child { border-radius: var(--r-lg) 0 0 var(--r-lg); }
+  .fl-step:last-child  { border-radius: 0 var(--r-lg) var(--r-lg) 0; }
+  .fl-step:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.2); z-index: 2; }
+  .fl-step::after {
+    content: '›'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+    color: var(--ifs-green); font-size: 1.5rem; font-weight: 900; z-index: 3;
+  }
+  .fl-step:last-child::after { display: none; }
+  .fl-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(0,240,160,0.15); border: 1px solid rgba(0,240,160,0.35);
+    color: var(--ifs-green); font-size: 0.68rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 0.65rem;
+  }
+  .fl-type { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ifs-green); margin-bottom: 0.2rem; }
+  .fl-step h3 { font-size: 0.9rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; }
+  .fl-assets { font-size: 0.72rem; color: rgba(0,240,160,0.75); font-weight: 600; margin-bottom: 0.35rem; line-height: 1.5; }
+  .fl-goal { font-size: 0.72rem; color: var(--ifs-text-muted); font-style: italic; }
+
+  /* ── REGIONAL ──────────────────────────────────────── */
+  .reg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+  .reg-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); padding: 1.75rem; transition: all 0.22s;
+  }
+  .reg-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.18); }
+  .reg-flag { font-size: 1.8rem; margin-bottom: 0.7rem; display: block; }
+  .reg-card h3 { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+  .reg-focus { font-size: 0.83rem; color: var(--ifs-text-muted); line-height: 1.6; margin-bottom: 0.9rem; }
+  .reg-card h4 { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ifs-green); margin: 0.8rem 0 0.4rem; }
+  .reg-card ul { list-style: none; }
+  .reg-card ul li {
+    font-size: 0.81rem; color: rgba(255,255,255,0.65);
+    padding: 0.2rem 0; display: flex; align-items: baseline; gap: 0.4rem;
+  }
+  .reg-card ul li::before { content: '→'; color: var(--ifs-green); font-weight: 700; }
+  .rtip {
+    background: rgba(0,240,160,0.06); border-left: 2px solid var(--ifs-green);
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 0.65rem 0.9rem; font-size: 0.78rem;
+    color: rgba(255,255,255,0.7); margin-top: 0.9rem; line-height: 1.6;
+  }
+
+  /* ── CALENDAR ──────────────────────────────────────── */
+  .cal-wrap { overflow-x: auto; border-radius: var(--r-lg); border: 1px solid var(--ifs-border); }
+  .cal-tbl { width: 100%; border-collapse: collapse; font-size: 0.84rem; min-width: 560px; }
+  .cal-tbl thead th {
+    background: rgba(61,26,110,0.5); color: rgba(255,255,255,0.85);
+    padding: 0.85rem 1rem; text-align: left;
+    font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  }
+  .cal-tbl td { padding: 0.58rem 1rem; border-bottom: 1px solid var(--ifs-border); vertical-align: middle; }
+  .cal-tbl tr:last-child td { border-bottom: none; }
+  .cal-tbl tr:hover td { background: rgba(0,240,160,0.04); }
+  .cal-date { font-weight: 700; color: var(--ifs-green); white-space: nowrap; font-size: 0.8rem; }
+  .cch { display: inline-block; padding: 0.1rem 0.5rem; border-radius: var(--r-pill); font-size: 0.66rem; font-weight: 700; white-space: nowrap; }
+  .cch-li { background: rgba(100,150,255,0.15); color: #82AAFF; }
+  .cch-web { background: rgba(0,240,160,0.12); color: var(--ifs-green); }
+  .cch-mk { background: rgba(255,160,60,0.12); color: #FFB060; }
+  .cch-db { background: rgba(155,95,223,0.15); color: var(--ifs-purple-glow); }
+  .cal-tbl td:last-child { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+
+  /* ── TOOLKIT ───────────────────────────────────────── */
+  .tk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+  .tk-card {
+    background: var(--ifs-card-bg); border: 1px solid var(--ifs-border);
+    border-radius: var(--r-xl); padding: 1.4rem; text-align: center;
+    text-decoration: none; transition: all 0.22s; display: flex; flex-direction: column; align-items: center;
+  }
+  .tk-card:hover { background: var(--ifs-card-hover); border-color: rgba(0,240,160,0.25); transform: translateY(-3px); }
+  .tk-icon {
+    width: 44px; height: 44px; border-radius: var(--r);
+    background: rgba(0,240,160,0.1); border: 1px solid rgba(0,240,160,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 0.8rem;
+  }
+  .tk-card h3 { font-size: 0.9rem; font-weight: 800; color: #fff; margin-bottom: 0.2rem; }
+  .tk-card p { font-size: 0.74rem; color: var(--ifs-text-muted); line-height: 1.5; }
+  .tk-note {
+    text-align: center; color: var(--ifs-text-muted); font-size: 0.9rem;
+    max-width: 580px; margin: 0 auto; line-height: 1.75;
+    padding-top: 1.75rem; border-top: 1px solid var(--ifs-border);
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
+  footer {
+    background: var(--ifs-nav); border-top: 1px solid var(--ifs-border);
+    padding: 1.75rem 1.5rem;
+  }
+  .foot-inner {
+    max-width: 1360px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .foot-brand { display: flex; align-items: center; gap: 0.7rem; }
+  .foot-mark {
+    width: 28px; height: 28px; flex-shrink: 0;
+  }
+  .foot-mark svg { width: 28px; height: 28px; }
+  .foot-text { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+  .foot-text span { color: var(--ifs-green); }
+  .foot-right { font-size: 0.74rem; color: var(--ifs-text-dim); text-align: right; line-height: 1.7; }
+  .foot-right strong { color: rgba(255,255,255,0.4); display: block; }
+
+  /* ── MOBILE ────────────────────────────────────────── */
+  .mob-menu-btn {
+    display: none; background: none; border: 1px solid var(--ifs-border-mid);
+    color: #fff; padding: 0.4rem 0.7rem; border-radius: var(--r);
+    cursor: pointer; font-size: 1.1rem; line-height: 1;
+  }
+  .mob-nav {
+    display: none; background: var(--ifs-nav);
+    border-bottom: 1px solid var(--ifs-border);
+    padding: 0.75rem 1.5rem 1rem;
+  }
+  .mob-nav.open { display: block; }
+  .mob-nav a {
+    display: block; color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.9rem; font-weight: 600; padding: 0.6rem 0;
+    border-bottom: 1px solid var(--ifs-border);
+  }
+  .mob-nav a:last-child { border-bottom: none; }
+  .mob-nav a:hover { color: var(--ifs-green); }
+
+  @media (max-width: 1024px) {
+    .overview-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .msg-grid, .feat-grid, .pri-grid, .mk-grid, .reg-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .fl-step { border-radius: var(--r-lg) !important; }
+    .fl-step::after { content: '↓'; right: auto; top: auto; bottom: -12px; left: 50%; transform: translateX(-50%); font-size: 1.2rem; }
+    .fl-step:last-child::after { display: none; }
+    .flow { gap: 1rem; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mob-menu-btn { display: block; }
+    section { padding: 2.75rem 1.25rem; }
+    .hero-content { padding: 2.5rem 1.25rem 3.5rem; }
+    .hero h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+    .hero-btns .btn { width: 100%; justify-content: center; }
+    .hero-btns { flex-direction: column; }
+    .tk-grid { grid-template-columns: repeat(2, 1fr); }
+    .blog-grid { grid-template-columns: 1fr; }
+    .a-grid { grid-template-columns: 1fr; }
+    .ch-grid, .persona-grid { grid-template-columns: 1fr 1fr; }
+    .cal-tbl { font-size: 0.78rem; }
+  }
+  @media (max-width: 480px) {
+    .ch-grid, .persona-grid { grid-template-columns: 1fr; }
+    .tk-grid { grid-template-columns: 1fr 1fr; }
+    .hero-tags { gap: 0.35rem; }
+    .tab-row { gap: 0.3rem; }
+    .tbtn { font-size: 0.72rem; padding: 0.35rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-starburst">
+        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="17" cy="17" r="16" fill="#3D1A6E"/>
+          <g>
+            <line x1="17" y1="3" x2="17" y2="31" stroke="#9B5FDF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="3" y1="17" x2="31" y2="17" stroke="#9B5FDF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="7.1" y1="7.1" x2="26.9" y2="26.9" stroke="#7B3FBF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="26.9" y1="7.1" x2="7.1" y2="26.9" stroke="#7B3FBF" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="5.3" y1="11.5" x2="28.7" y2="22.5" stroke="#5C2D9A" stroke-width="1" stroke-linecap="round"/>
+            <line x1="11.5" y1="5.3" x2="22.5" y2="28.7" stroke="#5C2D9A" stroke-width="1" stroke-linecap="round"/>
+            <line x1="5.3" y1="22.5" x2="28.7" y2="11.5" stroke="#5C2D9A" stroke-width="1" stroke-linecap="round"/>
+            <line x1="22.5" y1="5.3" x2="11.5" y2="28.7" stroke="#5C2D9A" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="17" cy="17" r="3" fill="#9B5FDF"/>
+          </g>
+        </svg>
+      </div>
+      <div class="nav-logo-text">IFS <span>Copperleaf</span><br>Rail Hub 2026</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#why">Why Now</a></li>
+      <li><a href="#messaging">Messaging</a></li>
+      <li><a href="#assets">Assets</a></li>
+      <li><a href="#featured">Featured</a></li>
+      <li><a href="#blogs">Blogs</a></li>
+      <li><a href="#activation">Activation</a></li>
+      <li><a href="#regional">Regional</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#toolkit" class="nav-cta">Access Toolkit</a>
+      <button class="mob-menu-btn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <a href="#overview" onclick="closeMenu()">Overview</a>
+  <a href="#why" onclick="closeMenu()">Why This Campaign</a>
+  <a href="#messaging" onclick="closeMenu()">Core Messaging</a>
+  <a href="#assets" onclick="closeMenu()">Asset Library</a>
+  <a href="#featured" onclick="closeMenu()">Featured Content</a>
+  <a href="#blogs" onclick="closeMenu()">Published Blogs</a>
+  <a href="#activation" onclick="closeMenu()">Activation Flow</a>
+  <a href="#regional" onclick="closeMenu()">Regional</a>
+  <a href="#calendar" onclick="closeMenu()">Calendar</a>
+  <a href="#toolkit" onclick="closeMenu()">Access Toolkit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-bottom"></div>
+  <div class="bracket tl"></div>
+  <div class="bracket tr"></div>
+  <div class="bracket bl"></div>
+  <div class="bracket br"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">2026 Always-On Campaign</div>
+    <h1>Rail Campaign<br><em>Content Hub</em></h1>
+    <p class="hero-sub">The central command center for IFS Copperleaf's global rail campaign — all messaging, assets, activation guidance, and regional resources in one place.</p>
+    <div class="hero-tags">
+      <span class="htag">Rail &amp; Transit</span>
+      <span class="htag">Brand Awareness + Lead Gen</span>
+      <span class="htag">Always-On 2026</span>
+      <span class="htag">Europe</span>
+      <span class="htag">APJMEA</span>
+      <span class="htag">AMER</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#assets" class="btn btn-green">Explore Campaign Assets →</a>
+      <a href="#toolkit" class="btn btn-outline">Access the Toolkit</a>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview" class="section-dark">
+  <div class="si">
+    <div class="overview-grid">
+      <div>
+        <span class="kicker">Campaign Overview</span>
+        <h2 class="st">Rail Campaign 2026</h2>
+        <p class="sl">A global always-on initiative to drive awareness, generate qualified leads, and position IFS Copperleaf as the decision intelligence platform for modern rail operators.</p>
+        <table class="meta-table">
+          <tr><td>Campaign</td><td>Rail Campaign</td></tr>
+          <tr><td>Objective</td><td>Brand Awareness + Lead Generation</td></tr>
+          <tr><td>Duration</td><td>Always-On — Full Year 2026</td></tr>
+          <tr><td>Regions</td><td>Europe · APJMEA · AMER</td></tr>
+          <tr><td>Sub-Vertical</td><td>Rail &amp; Transit</td></tr>
+          <tr><td>Solutions</td><td>IFS Copperleaf AIP · Portfolio · Value Framework · IFS ALM Platform (EAM + ERP + FSM)</td></tr>
+        </table>
+      </div>
+      <div class="pos-box">
+        <blockquote>This global always-on campaign positions IFS Copperleaf as the intelligence engine behind every rail investment decision — helping operators optimize capital planning, justify investments to regulators and boards, and build climate-resilient, high-performing networks.</blockquote>
+        <cite>Campaign Positioning Statement · IFS Copperleaf Rail 2026</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="si">
+    <span class="kicker">Why This Campaign Matters</span>
+    <h2 class="st">Rail Operators Face <em>Real Pressure</em></h2>
+    <p class="sl">The industry is navigating a convergence of structural challenges. IFS Copperleaf addresses the pressures that matter most to decision-makers — and this campaign speaks directly to them.</p>
+    <div class="ch-grid">
+      <div class="ch-card"><div class="ch-icon">🏗️</div><h3>Aging Infrastructure</h3><p>Legacy assets and delayed renewals increase risk and service disruption across the network.</p></div>
+      <div class="ch-card"><div class="ch-icon">💰</div><h3>Funding Constraints</h3><p>Limited budgets require smarter prioritization to achieve measurable outcomes and justify every investment.</p></div>
+      <div class="ch-card"><div class="ch-icon">📋</div><h3>Regulatory Pressure</h3><p>New performance and transparency mandates demand auditable, data-backed investment plans.</p></div>
+      <div class="ch-card"><div class="ch-icon">🌿</div><h3>ESG &amp; Decarbonization</h3><p>Sustainability targets must align with reliability and affordability across the asset lifecycle.</p></div>
+      <div class="ch-card"><div class="ch-icon">🔗</div><h3>Siloed Planning</h3><p>Disconnected data systems and teams slow decision-making and hinder consistency across the organization.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGETING -->
+<section id="targeting" class="section-alt">
+  <div class="si">
+    <span class="kicker">Who We're Targeting</span>
+    <h2 class="st">Key Personas &amp; Decision Makers</h2>
+    <p class="sl">This campaign speaks to senior leaders who drive capital investment decisions, risk strategy, and transformation across rail and transit networks globally.</p>
+    <div class="persona-grid">
+      <div class="p-pill"><div class="p-num">01</div><span>CEO / COO / CFO</span></div>
+      <div class="p-pill"><div class="p-num">02</div><span>Chief Strategy / Transformation Officer</span></div>
+      <div class="p-pill"><div class="p-num">03</div><span>SVP/VP, Asset Management</span></div>
+      <div class="p-pill"><div class="p-num">04</div><span>Directors of Infrastructure Investment &amp; Capital Planning</span></div>
+      <div class="p-pill"><div class="p-num">05</div><span>Chief Risk Officer</span></div>
+      <div class="p-pill"><div class="p-num">06</div><span>VP Finance / Regulatory Affairs</span></div>
+      <div class="p-pill"><div class="p-num">07</div><span>Chief Sustainability / Resilience Officer</span></div>
+      <div class="p-pill"><div class="p-num">08</div><span>Chief Digital Officer / CIO</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGING -->
+<section id="messaging" class="section-purple">
+  <div class="si">
+    <span class="kicker">Core Messaging</span>
+    <h2 class="st">Three Strategic Pillars</h2>
+    <p class="sl">These messages form the foundation of all campaign content — from paid ads and organic posts to nurture emails and sales enablement.</p>
+    <div class="msg-grid">
+      <div class="msg-card"><div class="msg-n">01</div><h3>Unify Planning to Maximize Value</h3><p>Align strategy, risk, and funding under one connected decision-making framework. Break down silos and give every stakeholder a single source of truth for capital investment decisions.</p></div>
+      <div class="msg-card"><div class="msg-n">02</div><h3>Balance Cost, Risk, and ESG</h3><p>Quantify outcomes on a single economic scale for measurable performance and transparency. Build defensible, board-ready plans that satisfy regulators and demonstrate responsible stewardship.</p></div>
+      <div class="msg-card"><div class="msg-n">03</div><h3>Transform Decision-Making</h3><p>Move from fragmented, reactive planning to a unified, AI-powered capital strategy that delivers lasting impact. Give your teams the confidence to act — and the evidence to justify every decision.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSETS -->
+<section id="assets">
+  <div class="si">
+    <span class="kicker">Campaign Asset Library</span>
+    <h2 class="st">Content Hub &amp; Assets</h2>
+    <p class="sl">All campaign assets organized by type and funnel stage. Everything your team needs to activate the campaign globally.</p>
+    <div class="tab-row">
+      <button class="tbtn active" onclick="this.closest('.si').querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">All Assets</button>
+      <button class="tbtn" onclick="this.closest('.si').querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Thought Leadership</button>
+      <button class="tbtn" onclick="this.closest('.si').querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Content &amp; Video</button>
+      <button class="tbtn" onclick="this.closest('.si').querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Social &amp; Paid</button>
+      <button class="tbtn" onclick="this.closest('.si').querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Customer Proof</button>
+    </div>
+    <div class="a-grid">
+      <div class="a-card"><span class="fbadge fb-t">TOFU — Awareness</span><h3>Thought Leadership</h3><p>Long-form articles and white papers building credibility with senior rail audiences.</p><ul><li>Thought Leadership Blog Series (19 articles)</li><li>Rail Thought Leadership Articles (6 long-form)</li><li>White Papers</li></ul><a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Assets/Blogs?csf=1&web=1&e=ylIQwj" target="_blank" class="btn btn-sm-outline" style="margin-top:auto">Access Blogs ↗</a></div>
+      <div class="a-card"><span class="fbadge fb-t">TOFU / MOFU</span><h3>Content &amp; Engagement</h3><p>Video, webinar, and carousel assets to educate and deepen engagement.</p><ul><li>Hero Video &amp; Client Testimonials</li><li>Marcus Evans Webinar (on-demand)</li><li>Carousel Series (5 themes)</li></ul><a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Assets/Videos?csf=1&web=1&e=7YzZv9" target="_blank" class="btn btn-sm-outline" style="margin-top:auto">Access Videos ↗</a></div>
+      <div class="a-card"><span class="fbadge fb-t">TOFU — Awareness + Retargeting</span><h3>Social &amp; Paid Media</h3><p>LinkedIn and Demandbase assets for precision account reach.</p><ul><li>LinkedIn Paid (Sponsored Content)</li><li>Demandbase Display</li><li>Organic Posts &amp; Carousels</li></ul><div class="link-stack"><a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Demandbase?csf=1&web=1&e=G6UGrL" target="_blank" class="btn btn-sm-outline">Demandbase ↗</a><a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/LinkedIn?csf=1&web=1&e=GjPbvJ" target="_blank" class="btn btn-sm-outline">LinkedIn ↗</a></div></div>
+      <div class="a-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2022/06/1920x500_railway-v1-1200x350.webp" alt="" class="a-img"><span class="fbadge fb-m">MOFU — Nurture</span><h3>Customer Proof</h3><p>Case studies and testimonials that validate real-world impact.</p><ul><li>Case Studies</li><li>Client Testimonial Videos</li></ul><a href="https://www.copperleaf.com/company/our-clients/network-rail/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto">Network Rail ↗</a></div>
+      <div class="a-card"><span class="fbadge fb-c">Cross-funnel</span><h3>Email Marketing</h3><p>Three Marketo nurture streams spanning the full funnel.</p><ul><li>TOFU Rail Nurture Stream</li><li>MOFU Rail Nurture Stream</li><li>BOFU Rail Nurture Stream</li></ul><a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Marketo?csf=1&web=1&e=d8y8Fb" target="_blank" class="btn btn-sm-outline" style="margin-top:auto">Access Marketo ↗</a></div>
+      <div class="a-card"><span class="fbadge fb-b">BOFU — Conversion</span><h3>Sales Enablement</h3><p>Bottom-of-funnel materials for sales conversations and closing high-intent accounts.</p><ul><li>One-Pagers &amp; ROI Narratives</li><li>Use Cases &amp; Objection Handling</li><li>Pitch Decks</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section id="featured" class="section-alt">
+  <div class="si">
+    <span class="kicker">Featured Content</span>
+    <h2 class="st">Start Here</h2>
+    <p class="sl">Primary digital destinations for this campaign. Direct audiences here first — from paid, organic, or direct outreach.</p>
+    <div class="feat-grid">
+      <a class="f-card" href="https://www.copperleaf.com/solutions-for-industry/rail-asset-risk-management/" target="_blank"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2025/05/IFSCopperleaf_Rail_1200x350.webp" alt=""><div class="f-body"><div class="f-kicker">Main Campaign Page</div><h3>Rail Asset Investment &amp; Risk Management</h3><p>Primary campaign destination with full solution messaging and conversion CTAs.</p><span class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Visit Page →</span></div></a>
+      <a class="f-card" href="https://engage.copperleaf.com/railandtransit" target="_blank"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2022/06/775x500_bridgeunderside.webp" alt=""><div class="f-body"><div class="f-kicker">Folloze Experience Page</div><h3>Rail &amp; Transit Campaign Hub</h3><p>Interactive campaign experience for personalized ABM outreach and content engagement.</p><span class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Visit Page →</span></div></a>
+      <a class="f-card" href="https://engage.copperleaf.com/railwebinar" target="_blank"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2022/08/775x500_NetworkRail.webp" alt=""><div class="f-body"><div class="f-kicker">On-Demand Webinar</div><h3>Marcus Evans Rail Webinar</h3><p>On-demand replay covering rail investment planning, risk, and decision intelligence.</p><span class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Watch Now →</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- BLOGS -->
+<section id="blogs">
+  <div class="si">
+    <span class="kicker">Published Blogs</span>
+    <h2 class="st">Thought Leadership Articles</h2>
+    <p class="sl">A rolling series built to drive organic traffic, support paid amplification, and provide nurture-ready content across all funnel stages.</p>
+    <div class="blog-grid">
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2026/03/freight-train-railroad-tracks-sunset-1920x500.jpg" alt=""><div class="b-body"><div class="b-cat">Investment Planning · Data</div><h3>How Rail Operators Use Data to Improve Investment Planning and Regulator Confidence</h3><a href="https://www.copperleaf.com/blog/how-rail-operators-use-data-to-improve-investment-planning-and-regulator-confidence/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2026/03/vertical-picture-mysteriously-abandoned-railroad-amidst-flourishing-forest-1920x500.jpg" alt=""><div class="b-body"><div class="b-cat">Strategy · Capital Planning</div><h3>Strategic Investment Planning for the Future of Rail</h3><a href="https://www.copperleaf.com/blog/strategic-investment-planning-for-the-future-of-rail/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2026/02/transport-logistics-concept-1920x500.jpg" alt=""><div class="b-body"><div class="b-cat">ESG · Sustainability</div><h3>Building Sustainable and Reliable Rail Through Strategic Capital Deployment</h3><a href="https://www.copperleaf.com/blog/building-sustainable-and-reliable-rail-through-strategic-capital-deployment/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2026/02/speeding-train-illuminates-futuristic-city-skyline-dusk-generated-by-ai-1920x500.jpg" alt=""><div class="b-body"><div class="b-cat">Unified Planning</div><h3>From Fragmentation to Focus: The Rise of Unified Planning</h3><a href="https://www.copperleaf.com/blog/unified-planning-in-rail-moving-from-fragmentation-to-focus/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2026/01/11732684-1920x500.jpg" alt=""><div class="b-body"><div class="b-cat">Decision Intelligence</div><h3>Why Every Rail Decision Matters More Than Ever</h3><a href="https://www.copperleaf.com/blog/rail-investment-decision-intelligence/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2025/09/ENLIT-Asia-Website-Banner-970-x-250-7-1920x500.png" alt=""><div class="b-body"><div class="b-cat">Europe · Resilience</div><h3>Turning Pressure into Performance: How European Rail Can Unlock Resilient, Value-Driven Investment</h3><a href="https://www.copperleaf.com/blog/european-rail-asset-investment-planning/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2024/06/Parent_1920x500_AMERTransit.webp" alt=""><div class="b-body"><div class="b-cat">Transit · Value-Based</div><h3>Feature Article: Value-based Decision Making and Investment Optimization in Transit</h3><a href="https://www.copperleaf.com/blog/feature-article-value-based-decision-making-and-investment-optimization-in-transit/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2022/12/1920x500_Metrorail-1920x500.webp" alt=""><div class="b-body"><div class="b-cat">Transit · Analytics</div><h3>How Decision Analytics Can Help Transit Agencies Reduce State of Good Repair Backlog</h3><a href="https://www.copperleaf.com/blog/how-decision-analytics-can-help-transit-agencies-reduce-state-of-good-repair-backlog/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+      <div class="b-card"><img src="https://d6a9a6a4.delivery.rocketcdn.me/wp-content/uploads/2022/06/1920x500_railway-v1.webp" alt=""><div class="b-body"><div class="b-cat">Network Rail · Case Study</div><h3>Network Rail: Putting Value at the Core of Asset Management</h3><a href="https://www.copperleaf.com/blog/network-rail-putting-value-at-the-core-of-asset-management/" target="_blank" class="btn btn-sm-outline" style="margin-top:auto;align-self:flex-start">Read Article →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIORITY -->
+<section id="priority" class="section-dark">
+  <div class="si">
+    <span class="kicker">Priority Assets</span>
+    <h2 class="st">Activate <em>These First</em></h2>
+    <p class="sl">Highest-impact assets for campaign activation. Regional teams should lead with these in the first wave of outreach and amplification.</p>
+    <div class="pri-grid">
+      <div class="pri-card"><span class="pri-badge">Client Testimonial</span><h3>Network Rail Testimonial</h3><p>Network Rail shares how IFS Copperleaf transformed capital investment planning and network resilience strategy.</p><a href="https://www.copperleaf.com/company/our-clients/network-rail/" target="_blank" class="btn btn-sm-green">View Testimonial →</a></div>
+      <div class="pri-card"><span class="pri-badge">On-Demand Webinar</span><h3>Marcus Evans Rail Webinar</h3><p>On-demand webinar replay focused on rail investment planning, risk, and decision intelligence for modern operators.</p><a href="https://engage.copperleaf.com/railwebinar" target="_blank" class="btn btn-sm-green">Watch Now →</a></div>
+      <div class="pri-card"><span class="pri-badge">Thought Leadership</span><h3>Why Every Rail Decision Matters More Than Ever</h3><p>Thought leadership content designed to drive awareness and engagement across senior rail audiences globally.</p><a href="https://www.copperleaf.com/blog/rail-investment-decision-intelligence/" target="_blank" class="btn btn-sm-green">Read Article →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETO -->
+<section id="marketo" class="section-alt">
+  <div class="si">
+    <span class="kicker">Email Marketing</span>
+    <h2 class="st">Marketo Nurture Streams</h2>
+    <p class="sl">Three coordinated email nurture streams spanning the full funnel — from awareness through to conversion.</p>
+    <div class="mk-grid">
+      <div class="mk-card"><div class="mk-bar t"></div><span class="fbadge fb-t" style="margin-top:0.25rem">TOFU</span><h3>TOFU Rail Nurture Stream</h3><p class="mk-purpose">Drive awareness of rail investment challenges and IFS Copperleaf capabilities through an always-on email cadence.</p><ul><li>Rail challenge awareness emails</li><li>Blog promotion (19-article series)</li><li>Carousel &amp; organic amplification</li><li>Webinar snippet promotion</li></ul><p class="mk-meta"><strong>Trigger:</strong> New audience entry / LinkedIn ad click<br><strong>Active:</strong> 30 Jan – 31 Dec 2026</p><span class="ctr-chip">Target CTR: 40%</span></div>
+      <div class="mk-card"><div class="mk-bar m"></div><span class="fbadge fb-m" style="margin-top:0.25rem">MOFU</span><h3>MOFU Rail Nurture Stream</h3><p class="mk-purpose">Engage leads with best practices, data-driven planning, and scenario modelling content to move them toward decision.</p><ul><li>Network Rail case study emails</li><li>White paper &amp; thought leadership</li><li>Solution explainer emails</li><li>On-demand webinar replay emails</li></ul><p class="mk-meta"><strong>Trigger:</strong> Engaged leads (download / email open)<br><strong>Active:</strong> 1 Apr – 31 Dec 2026</p><span class="ctr-chip">Target CTR: 60%</span></div>
+      <div class="mk-card"><div class="mk-bar b"></div><span class="fbadge fb-b" style="margin-top:0.25rem">BOFU</span><h3>BOFU Rail Nurture Stream</h3><p class="mk-purpose">Convert high-intent accounts to demo requests and sales conversations through targeted, ROI-focused outreach.</p><ul><li>ROI tool &amp; demo invitation emails</li><li>Regional ABM emails (sales-aligned)</li><li>Investment workshop invitations</li></ul><p class="mk-meta"><strong>Trigger:</strong> High-intent accounts (MQL / ABM signal)<br><strong>Active:</strong> Q3 &amp; Q4 2026 — Always On</p><span class="ctr-chip">Target CTR: 60%</span></div>
+    </div>
+    <div style="margin-top:1.75rem;text-align:center">
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Marketo?csf=1&web=1&e=d8y8Fb" target="_blank" class="btn btn-green">Access Marketo Assets →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVATION -->
+<section id="activation">
+  <div class="si">
+    <span class="kicker">Campaign Activation Flow</span>
+    <h2 class="st">From Awareness to Conversion</h2>
+    <p class="sl">A five-stage journey from initial targeting through to closed pipeline — each stage has dedicated assets, clear goals, and a defined handoff.</p>
+    <div class="flow">
+      <div class="fl-step"><div class="fl-num">1</div><div class="fl-type">Paid &amp; Organic</div><h3>Awareness</h3><p class="fl-assets">LinkedIn Paid · Demandbase · Organic Posts · Webinar Snippets</p><p class="fl-goal">Drive targeted traffic to campaign landing page</p></div>
+      <div class="fl-step"><div class="fl-num">2</div><div class="fl-type">Blogs &amp; Videos</div><h3>Educate</h3><p class="fl-assets">Thought Leadership · Hero Video · Client Testimonials</p><p class="fl-goal">Build credibility and educate on rail challenges</p></div>
+      <div class="fl-step"><div class="fl-num">3</div><div class="fl-type">Gated Content</div><h3>Engage</h3><p class="fl-assets">White Papers · Long-form Articles · Webinar Replay</p><p class="fl-goal">Capture leads and qualify intent</p></div>
+      <div class="fl-step"><div class="fl-num">4</div><div class="fl-type">Email Nurture</div><h3>Nurture</h3><p class="fl-assets">TOFU / MOFU Streams · Case Studies · Explainers</p><p class="fl-goal">Deepen engagement and move leads toward decision</p></div>
+      <div class="fl-step"><div class="fl-num">5</div><div class="fl-type">Demo &amp; Sales</div><h3>Convert</h3><p class="fl-assets">ROI Tools · Demo CTAs · Pitch Decks · ABM Outreach</p><p class="fl-goal">Convert MQLs to sales conversations</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGIONAL -->
+<section id="regional" class="section-alt">
+  <div class="si">
+    <span class="kicker">Regional Activation</span>
+    <h2 class="st">Regional Activation Guidelines</h2>
+    <p class="sl">Each region has distinct priorities, messaging angles, and recommended assets. Use these guidelines to localize and maximize impact.</p>
+    <div class="reg-grid">
+      <div class="reg-card"><span class="reg-flag">🇪🇺</span><h3>Europe</h3><p class="reg-focus">Key focus: Regulatory performance mandates, ESG &amp; decarbonization targets, aging network renewal</p><h4>Recommended Assets</h4><ul><li>Regulatory &amp; ESG-focused blogs</li><li>Network Rail &amp; SNCF case studies</li><li>LinkedIn campaigns (UK/DACH/Nordics/France)</li><li>Marcus Evans webinar replay</li></ul><div class="rtip">💡 Localize Marketo nurture sequences for key EU rail markets and align with regional regulator timelines.</div></div>
+      <div class="reg-card"><span class="reg-flag">🌏</span><h3>APJMEA</h3><p class="reg-focus">Key focus: Rapid network expansion, climate resilience, infrastructure investment growth</p><h4>Recommended Assets</h4><ul><li>Climate resilience &amp; capital planning blogs</li><li>ROI tools</li><li>Regional case studies</li><li>Carousel series</li></ul><div class="rtip">💡 Adapt messaging for climate resilience and infrastructure investment priorities in APAC and Middle East markets.</div></div>
+      <div class="reg-card"><span class="reg-flag">🌎</span><h3>AMER</h3><p class="reg-focus">Key focus: Aging infrastructure, public accountability, defensible capital plans for regulators and boards</p><h4>Recommended Assets</h4><ul><li>Houston METRO case study</li><li>ROI tools &amp; demo CTAs</li><li>ABM outreach for key transit accounts</li><li>Investment workshop invitations</li></ul><div class="rtip">💡 Leverage ABM alongside sales for key transit and rail accounts; emphasize public accountability messaging.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar">
+  <div class="si">
+    <span class="kicker">Campaign Calendar</span>
+    <h2 class="st">2026 Content &amp; Activation Timeline</h2>
+    <p class="sl">Key campaign milestones and content publication dates across all channels — updated throughout the year.</p>
+    <div class="cal-wrap">
+      <table class="cal-tbl">
+        <thead><tr><th>Date</th><th>Channel</th><th>Activity</th></tr></thead>
+        <tbody>
+          <tr><td class="cal-date">01 Jan 2026</td><td><span class="cch cch-li">LinkedIn</span></td><td>Paid Social — Website Visits — always-on campaign launches</td></tr>
+          <tr><td class="cal-date">06 Jan 2026</td><td><span class="cch cch-li">LinkedIn</span></td><td>Organic Post — Static — campaign awareness post goes live</td></tr>
+          <tr><td class="cal-date">19 Jan 2026</td><td><span class="cch cch-db">Demandbase</span></td><td>Programmatic Display — rail target accounts activated</td></tr>
+          <tr><td class="cal-date">22 Jan 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 01 — Why Every Rail Decision Matters More Than Ever</td></tr>
+          <tr><td class="cal-date">28 Jan 2026</td><td><span class="cch cch-li">LinkedIn</span></td><td>Blog Carousel 01 — visual story from Blog 01</td></tr>
+          <tr><td class="cal-date">28 Jan 2026</td><td><span class="cch cch-li">LinkedIn</span></td><td>Paid Social — Marcus Evans Webinar Snippet</td></tr>
+          <tr><td class="cal-date">30 Jan 2026</td><td><span class="cch cch-mk">Marketo</span></td><td>TOFU Rail Nurture Stream launches — always-on awareness cadence begins</td></tr>
+          <tr><td class="cal-date">02 Feb 2026</td><td><span class="cch cch-li">LinkedIn</span></td><td>Marcus Evans — video clips &amp; quote card campaign begins</td></tr>
+          <tr><td class="cal-date">04 Feb 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 02 — From Fragmentation to Focus: The Rise of Unified Planning</td></tr>
+          <tr><td class="cal-date">24 Feb 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 03 — The ESG Balancing Act: Building Sustainable and Reliable Rail</td></tr>
+          <tr><td class="cal-date">03 Mar 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 04 — How Data Builds Regulator Confidence</td></tr>
+          <tr><td class="cal-date">19 Mar 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 05 — Decision Intelligence: The Future of Rail Investment</td></tr>
+          <tr><td class="cal-date">31 Mar 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 06 — Why Data Overload is a Problem in Rail Planning</td></tr>
+          <tr><td class="cal-date">09 Apr 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 11 — Turning Rail Asset Data into Actionable Insights</td></tr>
+          <tr><td class="cal-date">29 Apr 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 07 — What Climate Resilience Means for Rail Infrastructure</td></tr>
+          <tr><td class="cal-date">12 May 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 08 — How Rail Operators Prioritize Capital Investments</td></tr>
+          <tr><td class="cal-date">26 May 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 09 — Integrating Asset Performance Data into Investment Decisions</td></tr>
+          <tr><td class="cal-date">10 Jun 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 10 — Scenario-Based Planning for Rail Infrastructure</td></tr>
+          <tr><td class="cal-date">25 Jun 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 13 — Assessing Climate Risk Across Rail Assets</td></tr>
+          <tr><td class="cal-date">09 Jul 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 12 — How Rail Agencies Build Defensible Capital Plans</td></tr>
+          <tr><td class="cal-date">30 Jul 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 14 — Asset Investment Planning Software for Rail Agencies</td></tr>
+          <tr><td class="cal-date">13 Aug 2026</td><td><span class="cch cch-web">Website</span></td><td>Blog 15 — Capital Planning Tools for Rail &amp; Transit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit" class="section-purple">
+  <div class="si">
+    <span class="kicker">Campaign Toolkit</span>
+    <h2 class="st">Access the <em>Full Toolkit</em></h2>
+    <p class="sl">All campaign assets organized and ready to activate. Direct links to everything your region needs to run the campaign.</p>
+    <div class="tk-grid">
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Assets/Blogs?csf=1&web=1&e=ylIQwj" target="_blank" class="tk-card"><div class="tk-icon">📝</div><h3>Blogs</h3><p>19-article thought leadership series</p></a>
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Assets/Videos?csf=1&web=1&e=7YzZv9" target="_blank" class="tk-card"><div class="tk-icon">🎬</div><h3>Videos</h3><p>Hero video, testimonials &amp; webinar</p></a>
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Demandbase?csf=1&web=1&e=G6UGrL" target="_blank" class="tk-card"><div class="tk-icon">🎯</div><h3>Demandbase</h3><p>Display ads &amp; ABM targeting</p></a>
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Landing%20Pages?csf=1&web=1&e=mXhCav" target="_blank" class="tk-card"><div class="tk-icon">🖥️</div><h3>Landing Pages</h3><p>Campaign &amp; ABM destinations</p></a>
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/LinkedIn?csf=1&web=1&e=GjPbvJ" target="_blank" class="tk-card"><div class="tk-icon">💼</div><h3>LinkedIn</h3><p>Paid &amp; organic social assets</p></a>
+      <a href="https://ifs.sharepoint.com/:f:/r/sites/CPLF_-marketing/Campaigns/2026/Always%20On/Rail/Marketo?csf=1&web=1&e=d8y8Fb" target="_blank" class="tk-card"><div class="tk-icon">📧</div><h3>Marketo</h3><p>TOFU / MOFU / BOFU streams</p></a>
+    </div>
+    <p class="tk-note">This hub is the single source of truth for the 2026 Rail Campaign. Regional and global teams should use it as their launch point for activation, localization, and execution — from first asset to final conversion.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="foot-mark">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="14" r="13" fill="#3D1A6E"/>
+          <line x1="14" y1="2" x2="14" y2="26" stroke="#9B5FDF" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="2" y1="14" x2="26" y2="14" stroke="#9B5FDF" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="5.8" y1="5.8" x2="22.2" y2="22.2" stroke="#7B3FBF" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="22.2" y1="5.8" x2="5.8" y2="22.2" stroke="#7B3FBF" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="2.5" fill="#9B5FDF"/>
+        </svg>
+      </div>
+      <div class="foot-text">IFS <span>Copperleaf</span> · Rail Campaign 2026</div>
+    </div>
+    <div class="foot-right"><strong>Internal Use Only — Campaign Activation Hub</strong>For global and regional marketing teams · Always-On 2026</div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobNav').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobNav').classList.remove('open');
+  }
+  // Close mobile menu on resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+  });
+</script>
+</body>
+</html>
